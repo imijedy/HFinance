@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="layouts/main">
+
+<head>
+  <title>Hajós Pénzügyek</title>
+</head>
+
+<body id="page-top">
+<div layout:fragment="PageContent" class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Költségek <i class="fas fa-info-circle ttLarge" data-toggle="tooltip" data-placement="right" data-html="true" title="<p>Az alábbi táblázatban a felvett költségek láthatók. A rendszer színekkel jelzi az állapotukat.</p><ul style='list-style: none'><li><b class='text-danger'>Piros</b> színnel jelzi az aktuális hónapnál régebbi befizetetlen költségeket.</li><li><b class='text-info'>Kék</b> színnel jelzi az aktuális hőnap befizetetlen költségeit.</li><li><b>Fehér</b> színnel jelzi a következő hónapok költségeit.</li><li><b class='text-success'>Zöld</b> színnel jelzi a már befizetett költségeket.</li></ul>"></i></h1>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <button type="button" data-toggle="modal" data-target="#costModal" id="addCostBtn" class="btn btn-primary">Költség hozzáadása</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Kategória</th>
+            <th>Befizetés módja</th>
+            <th>Tárgyidőszak</th>
+            <th>Fizetési határidő</th>
+            <th>Befizetés időpontja</th>
+            <th>Összeg</th>
+            <th>Állapot</th>
+            <th>Műveletek</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Kategória</th>
+            <th>Befizetés módja</th>
+            <th>Tárgyidőszak</th>
+            <th>Fizetési határidő</th>
+            <th>Befizetés időpontja</th>
+            <th>Összeg</th>
+            <th>Állapot</th>
+            <th>Műveletek</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<div id="costModal" class="modal fade">
+  <div class="modal-dialog">
+    <form method="post" id="cost_form" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Költség hozzáadása</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label>Kategória (Kötelező)</label>
+          <select name="costTypeFormData" id="costTypeFormData" class="form-control"></select>
+          <br />
+          <label>Befizetés módja (Kötelező)</label>
+          <select name="paymentMethodFormData" id="paymentMethodFormData" class="form-control">
+            <option value="None">Még nem lett kifizetve</option>
+            <option value="Készpénz">Készpénz</option>
+            <option value="Utalás">Utalás</option>
+            <option value="Alkalmazás">Alkalmazás</option>
+          </select>
+          <br />
+          <label>Tárgyidőszak (Kötelező)</label>
+          <input type="month" id="paymentPeriodFormData" name="paymentPeriodFormData" class="form-control">
+          <br />
+          <label>Fizetési határidő</label>
+          <input type="date" id="paymentDeadlineFormData" name="paymentDeadlineFormData" class="form-control">
+          <br />
+          <label>Befizetés időpontja</label>
+          <input type="date" id="paymentTimeFormData" name="paymentTimeFormData" class="form-control">
+          <br />
+          <label>Összeg (Kötelező)</label>
+          <input type="number" id="amountFormData" name="amountFormData" class="form-control">
+          <br />
+          <input type="checkbox" id="isPaidFormData" name="isPaidFormData">
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="idFormData" id="idFormData" />
+          <input type="hidden" name="operation" id="operation" />
+          <input type="submit" name="action" id="action" class="btn btn-success" value="Hozzáadás" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- DeleteModal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Költség törlése</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Bezárás">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Biztosan törölni szeretné ezt a költséget? (Nem visszavonható)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégsem</button>
+        <button type="button" class="btn btn-danger deleteModalBtn">Biztosan törlöm</button>
+        <input type="hidden" id="costDelId" value=""/>
+      </div>
+    </div>
+  </div>
+</div>

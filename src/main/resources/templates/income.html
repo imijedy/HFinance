@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="layouts/main">
+
+<head>
+  <title>Hajós Pénzügyek</title>
+</head>
+
+<body id="page-top">
+<div layout:fragment="PageContent" class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Bevételek <i class="fas fa-info-circle ttLarge" data-toggle="tooltip" data-placement="right" data-html="true" title="Az alábbi táblázatban láthatók az eddig felvett bevételek. Hozzáadhat, törölhet vagy módosíthat bevételeket."></i></h1>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <button type="button" data-toggle="modal" data-target="#incomeModal" id="addIncomeBtn" class="btn btn-primary">Bevétel hozzáadása</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table" id="incomeDataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Információ</th>
+            <th>Dátum</th>
+            <th>Összeg</th>
+            <th>Műveletek</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th>Információ</th>
+            <th>Dátum</th>
+            <th>Összeg</th>
+            <th>Műveletek</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<div id="incomeModal" class="modal fade">
+  <div class="modal-dialog">
+    <form method="post" id="income_form" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Bevétel hozzáadása</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label>Információ</label>
+          <input class="form-control" name="incomeInformationFormData" id="incomeInformationFormData" type="text">
+          <br />
+          <label>Dátum (Kötelező)</label>
+          <input type="date" id="incomeDateFormData" name="incomeDateFormData" class="form-control">
+          <br />
+          <label>Összeg (Kötelező)</label>
+          <input type="number" id="incomeAmountFormData" name="incomeAmountFormData" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="idFormData" id="idFormData" />
+          <input type="hidden" name="operation" id="operation" />
+          <input type="submit" name="action" id="action" class="btn btn-success" value="Hozzáadás" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- DeleteModal -->
+<div class="modal fade" id="deleteIncomeModal" tabindex="-1" role="dialog" aria-labelledby="deleteIncomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bevétel törlése</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Bezárás">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Biztosan törölni szeretné ezt a bevételt? (Nem visszavonható)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégsem</button>
+        <button type="button" class="btn btn-danger deleteIncomeModalBtn">Biztosan törlöm</button>
+        <input type="hidden" id="incomeDelId" value=""/>
+      </div>
+    </div>
+  </div>
+</div>
